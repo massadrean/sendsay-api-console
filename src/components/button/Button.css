@@ -9,7 +9,7 @@
   -ms-user-select: none;
   user-select: none;
   border: none;
-  padding: 11px 20px;
+  padding: 0 20px;
   font-size: 1rem;
   line-height: 1.15;
   border-radius: 5px;
@@ -19,11 +19,14 @@
   position: relative;
   overflow: hidden;
   min-width: 110px;
+  height: 40px;
 }
 
 .button__inner {
   position: relative;
   z-index: 1;
+  display: inline-flex;
+  align-items: center;
 }
 
 .button_blue {
@@ -68,6 +71,32 @@
 
 .button_blue:active:after {
   opacity: 1;
+}
+
+.button_link {
+  background: none;
+  padding: 5px;
+  height: auto;
+  min-width: initial;
+}
+
+.button_link-blue:hover,
+.button_link-blue:focus {
+  color: #0055fb;
+}
+
+.button_link-blue:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #9ecefc;
+}
+
+.button_svg-stroke-hover-blue svg * {
+  transition: stroke 0.2s;
+}
+
+.button_svg-stroke-hover-blue:hover svg *,
+.button_link-blue:focus svg * {
+  stroke: #0055fb;
 }
 
 .button_disabled {

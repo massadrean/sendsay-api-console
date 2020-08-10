@@ -3,7 +3,11 @@ import PropTypes from "prop-types";
 import "./Button.css";
 
 const propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array,
+    PropTypes.object
+  ]).isRequired,
   type: PropTypes.string,
   appearance: PropTypes.string.isRequired,
   loading: PropTypes.bool,

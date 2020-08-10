@@ -17,7 +17,12 @@ export const requestSession = credentials => dispatch => {
     })
     .then(res => {
       localStorage.setItem("sendsay-session", res.session);
-      dispatch(sessionReceived(res));
+      const userData = { session: res.session, login: res.login };
+      if (sublogin) {
+        localStorage.setItem("show-sublogin", true);
+        userData.sublogin = sublogin;
+      }
+      dispatch(sessionReceived(userData));
     });
 };
 
@@ -28,11 +33,22 @@ export const checkSession = session => dispatch => {
       action: "pong"
     })
     .then(res => {
-      const userData = { session, login: res.account, sublogin: res.sublogin };
+      const userData = { session, login: res.account };
+      const sublogin = localStorage.getItem("show-sublogin");
+      if (sublogin) {
+        userData.sublogin = res.sublogin;
+      }
       dispatch(sessionReceived(userData));
     });
 };
 
-export const userLoggedOut = () => ({
-  type: LOGOUT
-});
+export const logoutAction = () => {
+  localStorage.removeItem("sendsay-session");
+  localStorage.removeItem("show-sublogin");
+  sendsayApi.request({
+    action: "logout"
+  });
+  return {
+    type: LOGOUT
+  };
+};
