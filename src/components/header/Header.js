@@ -42,7 +42,7 @@ const Header = ({ logo, title, userLogin, userSublogin, logout }) => {
             } }
           >
             Выйти
-            <span className="header__logout-icon">
+            <span className="button__right-icon">
               <Logout />
             </span>
           </Button>

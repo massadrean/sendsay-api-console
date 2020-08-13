@@ -1,2 +1,5 @@
 export const SESSION_RECEIVED = "SESSION_RECEIVED";
-export const LOGOUT = "LOGOUT";
+export const USER_LOGOUT = "USER_LOGOUT";
+export const MAKE_REQUEST = "MAKE_REQUEST";
+export const ADD_REQUEST_TO_HISTORY = "ADD_REQUEST_TO_HISTORY";
+export const CHANGE_RATIO = "CHANGE_RATIO";

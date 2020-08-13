@@ -1,13 +1,14 @@
-import { SESSION_RECEIVED, LOGOUT } from "./actionTypes";
+import { SESSION_RECEIVED, USER_LOGOUT } from "./actionTypes";
 import sendsayApi from "../../api/sendsayApi";
 
-const sessionReceived = ({ session, login, sublogin }) => ({
+const sessionReceived = userData => ({
   type: SESSION_RECEIVED,
-  userData: { session, login, sublogin }
+  userData
 });
 
 export const requestSession = credentials => dispatch => {
   const { login, sublogin, password: passwd } = credentials;
+
   return sendsayApi
     .request({
       action: "login",
@@ -16,12 +17,11 @@ export const requestSession = credentials => dispatch => {
       passwd
     })
     .then(res => {
-      localStorage.setItem("sendsay-session", res.session);
       const userData = { session: res.session, login: res.login };
       if (sublogin) {
-        localStorage.setItem("show-sublogin", true);
         userData.sublogin = sublogin;
       }
+      sendsayApi.setSession(res.session);
       dispatch(sessionReceived(userData));
     });
 };
@@ -32,23 +32,16 @@ export const checkSession = session => dispatch => {
     .request({
       action: "pong"
     })
-    .then(res => {
-      const userData = { session, login: res.account };
-      const sublogin = localStorage.getItem("show-sublogin");
-      if (sublogin) {
-        userData.sublogin = res.sublogin;
-      }
-      dispatch(sessionReceived(userData));
+    .then(() => {
+      dispatch(sessionReceived({}));
     });
 };
 
 export const logoutAction = () => {
-  localStorage.removeItem("sendsay-session");
-  localStorage.removeItem("show-sublogin");
   sendsayApi.request({
     action: "logout"
   });
   return {
-    type: LOGOUT
+    type: USER_LOGOUT
   };
 };

@@ -73,6 +73,14 @@
   opacity: 1;
 }
 
+.button__left-icon {
+  margin-right: 8px;
+}
+
+.button__right-icon {
+  margin-left: 8px;
+}
+
 .button_link {
   background: none;
   padding: 5px;

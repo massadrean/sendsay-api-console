@@ -8,11 +8,11 @@ import Link from "../link/Link";
 import "./LoginPage.css";
 
 const propTypes = {
-  requestSessionProp: PropTypes.func.isRequired
+  requestSessionThunkAction: PropTypes.func.isRequired
 };
 
-const LoginPage = ({ requestSessionProp }) => {
-  const handleFormSubmit = formData => requestSessionProp(formData);
+const LoginPage = ({ requestSessionThunkAction }) => {
+  const handleFormSubmit = formData => requestSessionThunkAction(formData);
 
   return (
     <div className="login-page">
@@ -43,4 +43,6 @@ const LoginPage = ({ requestSessionProp }) => {
 
 LoginPage.propTypes = propTypes;
 
-export default connect(null, { requestSessionProp: requestSession })(LoginPage);
+export default connect(null, { requestSessionThunkAction: requestSession })(
+  LoginPage
+);

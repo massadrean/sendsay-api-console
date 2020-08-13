@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Header from "../header/Header";
 import logo from "../../images/LOGO.svg";
+import ConsoleForm from "../forms/ConsoleForm";
 import "./ConsolePage.css";
 
 const propTypes = {
@@ -20,6 +21,7 @@ const ConsolePage = ({ userData }) => (
       userLogin={ userData.login }
       userSublogin={ userData.sublogin }
     />
+    <ConsoleForm />
   </div>
 );
 

@@ -2,7 +2,10 @@ import React, { Suspense, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { checkSession } from "./redux/actions/authorizationActions";
+import {
+  checkSession,
+  logoutAction
+} from "./redux/actions/authorizationActions";
 import GuestRoute from "./routes/GuestRoute";
 import UserRoute from "./routes/UserRoute";
 import "./App.css";
@@ -15,26 +18,26 @@ const ConsolePage = React.lazy(() =>
 );
 
 const propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
-  checkSessionProp: PropTypes.func.isRequired
+  session: PropTypes.string,
+  checkSessionThunkAction: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired
 };
 
-function App({ isAuthenticated, checkSessionProp }) {
+function App({ session, checkSessionThunkAction, logout }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const session = localStorage.getItem("sendsay-session");
     if (session) {
       setLoading(true);
-      checkSessionProp(session)
+      checkSessionThunkAction(session)
         .catch(() => {
-          localStorage.removeItem("sendsay-session");
+          logout();
         })
         .finally(() => {
           setLoading(false);
         });
     }
-  }, [checkSessionProp]);
+  }, [checkSessionThunkAction, session, logout]);
 
   return (
     <div className="App">
@@ -44,11 +47,7 @@ function App({ isAuthenticated, checkSessionProp }) {
         <Switch>
           <Suspense fallback={ <div className="preloader" /> }>
             <Route path="/" exact>
-              { isAuthenticated ? (
-                <Redirect to="/console" />
-              ) : (
-                <Redirect to="/login" />
-              ) }
+              { session ? <Redirect to="/console" /> : <Redirect to="/login" /> }
             </Route>
             <GuestRoute path="/login" exact component={ LoginPage } />
             <UserRoute path="/console" exact component={ ConsolePage } />
@@ -60,11 +59,16 @@ function App({ isAuthenticated, checkSessionProp }) {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: !!state.userData.session
+  session: state.userData.session
+});
+
+const mapDispatchToProps = dispatch => ({
+  checkSessionThunkAction: session => dispatch(checkSession(session)),
+  logout: () => {
+    dispatch(logoutAction());
+  }
 });
 
 App.propTypes = propTypes;
 
-export default connect(mapStateToProps, { checkSessionProp: checkSession })(
-  App
-);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

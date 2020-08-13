@@ -1,4 +1,4 @@
-import { SESSION_RECEIVED, LOGOUT } from "../actions/actionTypes";
+import { SESSION_RECEIVED } from "../actions/actionTypes";
 
 const initialState = {
   login: "",
@@ -9,9 +9,7 @@ const initialState = {
 export default function userData(state = initialState, action = {}) {
   switch (action.type) {
     case SESSION_RECEIVED:
-      return action.userData;
-    case LOGOUT:
-      return {};
+      return { ...state, ...action.userData };
     default:
       return state;
   }
