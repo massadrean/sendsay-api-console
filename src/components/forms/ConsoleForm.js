@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Split from "react-split";
-import { submitRequest } from "../../redux/actions/requestHistoryActions";
-import { changeRatio } from "../../redux/actions/consoleActions";
+import {
+  submitRequest,
+  setConsoleRatio,
+  setConsoleInputValue
+} from "../../redux/actions/consoleActions";
 import Editor from "../editor/Editor";
 import Button from "../button/Button";
 import Link from "../link/Link";
@@ -13,37 +16,33 @@ import "./ConsoleForm.css";
 const propTypes = {
   isLoading: PropTypes.bool,
   submitRequestThunkAction: PropTypes.func.isRequired,
-  serverResponse: PropTypes.oneOfType([PropTypes.object]),
+  serverResponse: PropTypes.string,
   isServerError: PropTypes.bool,
   consoleRatio: PropTypes.arrayOf(PropTypes.number),
-  setConsoleRatio: PropTypes.func.isRequired
+  setConsoleRatioAction: PropTypes.func.isRequired,
+  inputValue: PropTypes.string,
+  setConsoleInputValueAction: PropTypes.func.isRequired
 };
 
-const ConsoleRequestForm = ({
+const ConsoleForm = ({
   isLoading,
   submitRequestThunkAction,
   serverResponse,
   isServerError,
   consoleRatio,
-  setConsoleRatio
+  setConsoleRatioAction,
+  inputValue,
+  setConsoleInputValueAction
 }) => {
-  const [inputValue, setInputValue] = useState("");
   const [inputError, setInputError] = useState(false);
   const editorTabSize = 2;
-  let stringifiedServerResponse = "";
-  try {
-    stringifiedServerResponse = JSON.stringify(serverResponse, null, 2);
-  } catch (err) {
-    stringifiedServerResponse = err.toString();
-    isServerError = true;
-  }
 
   const handleChange = val => {
-    setInputValue(val);
+    setConsoleInputValueAction(val);
   };
 
   const handleResize = sizes => {
-    setConsoleRatio(sizes);
+    setConsoleRatioAction(sizes);
   };
 
   const formatJson = json => {
@@ -59,7 +58,7 @@ const ConsoleRequestForm = ({
   const formatInputValue = () => {
     const formatted = formatJson(inputValue);
     if (formatted) {
-      setInputValue(formatted);
+      setConsoleInputValueAction(formatted);
       setInputError(false);
     } else {
       setInputError(true);
@@ -69,11 +68,14 @@ const ConsoleRequestForm = ({
   const handleSubmit = e => {
     e.preventDefault();
 
-    if (formatJson(inputValue)) {
-      setInputError(false);
-      submitRequestThunkAction(JSON.parse(inputValue));
-    } else {
-      setInputError(true);
+    if (!isLoading) {
+      const formattedInputValue = formatJson(inputValue);
+      if (formattedInputValue) {
+        setInputError(false);
+        submitRequestThunkAction(formattedInputValue);
+      } else {
+        setInputError(true);
+      }
     }
   };
 
@@ -105,7 +107,7 @@ const ConsoleRequestForm = ({
             handleResize={ handleResize }
             tabSize={ editorTabSize }
             isError={ isServerError }
-            value={ stringifiedServerResponse }
+            value={ serverResponse }
             readOnly
           />
         </Split>
@@ -142,19 +144,19 @@ const ConsoleRequestForm = ({
 };
 
 const mapStateToProps = state => ({
-  isLoading: state.requestHistory.isFetching,
-  serverResponse: state.requestHistory.response,
-  isServerError: state.requestHistory.error,
-  consoleRatio: state.console.ratio
+  isLoading: state.console.isFetching,
+  serverResponse: state.console.outputValue,
+  isServerError: state.console.isServerError,
+  consoleRatio: state.console.ratio,
+  inputValue: state.console.inputValue
 });
 
 const mapDispatchToProps = dispatch => ({
   submitRequestThunkAction: request => dispatch(submitRequest(request)),
-  setConsoleRatio: ratio => {
-    dispatch(changeRatio(ratio));
-  }
+  setConsoleRatioAction: ratio => dispatch(setConsoleRatio(ratio)),
+  setConsoleInputValueAction: value => dispatch(setConsoleInputValue(value))
 });
 
-ConsoleRequestForm.propTypes = propTypes;
+ConsoleForm.propTypes = propTypes;
 
-export default connect(mapStateToProps, mapDispatchToProps)(ConsoleRequestForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ConsoleForm);

@@ -19,7 +19,27 @@ const propTypes = {
 };
 
 const Header = ({ logo, title, userLogin, userSublogin, logout }) => {
-  const [toggleFullscreen, isFullscreen, fullscreenError] = useFullscreent();
+  const {
+    openFullscreen,
+    closeFullscreen,
+    isFullscreen,
+    fullscreenError
+  } = useFullscreent();
+
+  const toggleFullscreen = () => {
+    if (!isFullscreen) {
+      openFullscreen(document.documentElement);
+    } else {
+      closeFullscreen();
+    }
+  };
+
+  const handleLogout = () => {
+    if (isFullscreen) {
+      closeFullscreen();
+    }
+    logout();
+  };
 
   return (
     <div className="header">
@@ -37,9 +57,7 @@ const Header = ({ logo, title, userLogin, userSublogin, logout }) => {
         <div className="header__logout">
           <Button
             appearance="link button_link-blue button_svg-stroke-hover-blue"
-            onClick={ () => {
-              logout(logoutAction());
-            } }
+            onClick={ handleLogout }
           >
             Выйти
             <span className="button__right-icon">
@@ -69,8 +87,8 @@ const Header = ({ logo, title, userLogin, userSublogin, logout }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  logout: action => {
-    dispatch(action);
+  logout: () => {
+    dispatch(logoutAction());
   }
 });
 

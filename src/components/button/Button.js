@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
 import "./Button.css";
 
@@ -14,25 +14,30 @@ const propTypes = {
   disabled: PropTypes.bool
 };
 
-const Button = ({
-  children,
-  type = "button",
-  appearance,
-  loading,
-  disabled,
-  ...rest
-}) => (
-  <button
-    type={ type }
-    className={ `button button_${appearance} ${
-      loading ? "button_loading" : ""
-    } ${disabled ? "button_disabled" : ""}` }
-    disabled={ disabled }
-    { ...rest }
-  >
-    <span className="button__inner">{ children }</span>
-  </button>
-);
+const Button = forwardRef((props, ref) => {
+  const {
+    children,
+    type = "button",
+    appearance,
+    loading,
+    disabled,
+    ...rest
+  } = props;
+
+  return (
+    <button
+      type={ type }
+      className={ `button button_${appearance} ${
+        loading ? "button_loading" : ""
+      } ${disabled ? "button_disabled" : ""}` }
+      disabled={ disabled }
+      ref={ ref }
+      { ...rest }
+    >
+      <span className="button__inner">{ children }</span>
+    </button>
+  );
+});
 
 Button.propTypes = propTypes;
 

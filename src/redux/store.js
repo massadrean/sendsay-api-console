@@ -5,11 +5,11 @@ import throttle from "lodash/throttle";
 import rootReducer from "./reducers/rootReducer";
 import { loadState, saveState } from "../api/localStorage";
 
-const persistedState = loadState();
+const preloadedState = loadState();
 
 const store = createStore(
   rootReducer,
-  persistedState,
+  preloadedState,
   composeWithDevTools(applyMiddleware(thunk))
 );
 
@@ -17,11 +17,9 @@ store.subscribe(
   throttle(() => {
     saveState({
       userData: store.getState().userData,
-      requestHistory: {
-        requests: store.getState().requestHistory.requests
-      },
       console: {
-        ratio: store.getState().console.ratio
+        ratio: store.getState().console.ratio,
+        requests: store.getState().console.requests
       }
     });
   }),

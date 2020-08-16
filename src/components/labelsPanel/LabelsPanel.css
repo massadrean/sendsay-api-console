@@ -1,0 +1,71 @@
+.labels-panel {
+  background: #f6f6f6;
+  overflow: hidden;
+}
+
+.labels-panel__container {
+  padding-left: 0;
+  padding-right: 0;
+  position: relative;
+}
+
+.labels-panel__container:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 100%;
+  background: linear-gradient(
+    to left,
+    rgba(246, 246, 246, 0) 0%,
+    rgba(246, 246, 246, 1) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.labels-panel__clear-btn {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  right: 0;
+  background: #f6f6f6;
+  height: 100%;
+  width: 50px;
+  border-left: 1px solid #c4c4c4;
+  z-index: 1;
+}
+
+.labels-panel__clear-btn:before {
+  content: "";
+  position: absolute;
+  right: calc(100% + 1px);
+  width: 20px;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(246, 246, 246, 0) 0%,
+    rgba(246, 246, 246, 1) 100%
+  );
+  pointer-events: none;
+}
+
+.labels-panel .scrollbar-track {
+  z-index: -999;
+}
+
+.labels-panel_inner {
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 65px;
+  width: fit-content;
+}
+
+.labels-panel__label:not(:last-child) {
+  margin-right: 10px;
+}

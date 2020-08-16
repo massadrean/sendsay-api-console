@@ -62,7 +62,7 @@ const LoginForm = ({ handleSubmit, title }) => {
     LoginForm.wasErrors = isErrors;
     setValidationErrors(errors);
 
-    if (!isErrors) {
+    if (!isErrors && !isLoading) {
       setLoading(true);
       handleSubmit(data).catch(err => {
         setServerErrors(err);

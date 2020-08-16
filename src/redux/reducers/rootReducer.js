@@ -2,12 +2,10 @@ import { combineReducers } from "redux";
 import { USER_LOGOUT } from "../actions/actionTypes";
 
 import userData from "./authorizationReducer";
-import requestHistory from "./requestHistoryReducer";
 import console from "./consoleReducer";
 
 const appReducer = combineReducers({
   userData,
-  requestHistory,
   console
 });
 

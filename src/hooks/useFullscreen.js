@@ -40,14 +40,6 @@ const useFullscreen = () => {
     }
   };
 
-  const toggleFullscreen = () => {
-    if (!isFullscreen) {
-      openFullscreen(document.documentElement);
-    } else {
-      closeFullscreen();
-    }
-  };
-
   useEffect(() => {
     const handleFullscreenChange = () => {
       setIsFullscreen(state => !state);
@@ -74,7 +66,12 @@ const useFullscreen = () => {
     };
   }, []);
 
-  return [toggleFullscreen, isFullscreen, fullscreenError];
+  return {
+    openFullscreen,
+    closeFullscreen,
+    isFullscreen,
+    fullscreenError
+  };
 };
 
 export default useFullscreen;

@@ -6,35 +6,30 @@ const sessionReceived = userData => ({
   userData
 });
 
-export const requestSession = credentials => dispatch => {
+export const requestSession = credentials => async dispatch => {
   const { login, sublogin, password: passwd } = credentials;
+  const response = await sendsayApi.request({
+    action: "login",
+    login,
+    sublogin,
+    passwd
+  });
+  const userData = { session: response.session, login: response.login };
 
-  return sendsayApi
-    .request({
-      action: "login",
-      login,
-      sublogin,
-      passwd
-    })
-    .then(res => {
-      const userData = { session: res.session, login: res.login };
-      if (sublogin) {
-        userData.sublogin = sublogin;
-      }
-      sendsayApi.setSession(res.session);
-      dispatch(sessionReceived(userData));
-    });
+  if (sublogin) {
+    userData.sublogin = sublogin;
+  }
+
+  sendsayApi.setSession(response.session);
+  dispatch(sessionReceived(userData));
 };
 
-export const checkSession = session => dispatch => {
+export const checkSession = session => async dispatch => {
   sendsayApi.setSession(session);
-  return sendsayApi
-    .request({
-      action: "pong"
-    })
-    .then(() => {
-      dispatch(sessionReceived({}));
-    });
+  await sendsayApi.request({
+    action: "pong"
+  });
+  dispatch(sessionReceived({}));
 };
 
 export const logoutAction = () => {
