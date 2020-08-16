@@ -2,7 +2,6 @@
   background: #fff;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  padding: 1px 7px 1px 9px;
   display: inline-flex;
   align-items: center;
   position: relative;
@@ -15,12 +14,14 @@
 
 .history-label:before {
   content: "";
-  display: block;
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
   width: 10px;
   height: 10px;
   border-radius: 50%;
   box-sizing: border-box;
-  margin-right: 1px;
 }
 
 .history-label_successful:before {
@@ -31,6 +32,27 @@
 .history-label_unsuccessful:before {
   background: #cf2c00;
   border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.history-label__name-btn {
+  background: none;
+  border: none;
+  border-radius: 5px;
+  padding: 0 27px;
+  height: 30px;
+  z-index: 1;
+}
+
+.history-label__name-btn:focus {
+  outline: none;
+}
+
+.history-label__button {
+  position: absolute;
+  top: 50%;
+  right: 7px;
+  transform: translateY(-50%);
+  z-index: 2;
 }
 
 .history-label__tooltip {
@@ -65,4 +87,9 @@
   opacity: 0;
   transform: translate(-50%, calc(-50% - 8px));
   transition: opacity 0.25s, transform 0.25s;
+}
+
+.history-label__dropdown-divider {
+  border-bottom: 1px solid #cccccc;
+  margin: 5px 0;
 }

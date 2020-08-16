@@ -14,10 +14,10 @@ const propTypes = {
     sublogin: PropTypes.string
   }),
   requests: PropTypes.arrayOf(PropTypes.object).isRequired,
-  clearRequestsAction: PropTypes.func.isRequired
+  clearRequestHistoryAction: PropTypes.func.isRequired
 };
 
-const ConsolePage = ({ userData, requests, clearRequestsAction }) => (
+const ConsolePage = ({ userData, requests, clearRequestHistoryAction }) => (
   <div className="console-page">
     <Header
       logo={ logo }
@@ -25,9 +25,10 @@ const ConsolePage = ({ userData, requests, clearRequestsAction }) => (
       userLogin={ userData.login }
       userSublogin={ userData.sublogin }
     />
-    { !!requests.length && (
-      <LabelsPanel labels={ requests } clearLabels={ clearRequestsAction } />
-    ) }
+    { /* { !!requests.length && (
+      <LabelsPanel labels={ requests } clearLabels={ clearRequestHistoryAction } />
+    ) } */ }
+    <LabelsPanel labels={ requests } clearLabels={ clearRequestHistoryAction } />
     <ConsoleForm />
   </div>
 );
@@ -38,7 +39,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  clearRequestsAction: () => dispatch(clearRequestHistory())
+  clearRequestHistoryAction: () => dispatch(clearRequestHistory())
 });
 
 ConsolePage.propTypes = propTypes;

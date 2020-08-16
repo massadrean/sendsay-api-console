@@ -8,4 +8,6 @@
 
 .login-form__alert {
   margin-bottom: 21px;
+  transition: height 0.5s;
+  overflow: hidden;
 }

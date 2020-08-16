@@ -1,9 +1,25 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useCallback } from "react";
 import Scrollbar, { ScrollbarPlugin } from "smooth-scrollbar";
 
 const useHorizontalScrollbal = (renderLayer, options) => {
   const [scrollbarApi, setScrollbarApi] = useState(null);
-  const containerRef = useRef(null);
+  const containerRef = useCallback(
+    node => {
+      if (node !== null) {
+        setScrollbarApi(
+          Scrollbar.init(node, {
+            plugins: {
+              invertDelta: {
+                events: [/wheel/]
+              }
+            },
+            ...options
+          })
+        );
+      }
+    },
+    [options]
+  );
 
   class InvertDeltaPlugin extends ScrollbarPlugin {
     static pluginName = "invertDelta";
@@ -29,21 +45,6 @@ const useHorizontalScrollbal = (renderLayer, options) => {
   }
 
   Scrollbar.use(InvertDeltaPlugin);
-
-  useEffect(() => {
-    if (containerRef.current) {
-      setScrollbarApi(
-        Scrollbar.init(containerRef.current, {
-          plugins: {
-            invertDelta: {
-              events: [/wheel/]
-            }
-          },
-          ...options
-        })
-      );
-    }
-  }, [containerRef, options]);
 
   return <div ref={ containerRef }>{ renderLayer(scrollbarApi) }</div>;
 };

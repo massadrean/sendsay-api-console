@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 import ReactResizeDetector from "react-resize-detector";
 import AceEditor from "react-ace";
 import "ace-builds/src-min-noconflict/mode-json";
@@ -38,13 +39,17 @@ const Editor = ({
       <div className="editor">
         { title && (
           <div
-            className={ `editor__title ${isError ? "editor__title_error" : ""}` }
+            className={ classNames("editor__title", {
+              editor__title_error: isError
+            }) }
           >
             { title }
           </div>
         ) }
         <label
-          className={ `editor__label ${isError ? "editor__label_error" : ""}` }
+          className={ classNames("editor__label", {
+            editor__label_error: isError
+          }) }
         >
           <AceEditor
             mode="json"

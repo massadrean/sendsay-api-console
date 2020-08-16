@@ -4,6 +4,7 @@ const useFullscreen = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [fullscreenError, setFullscreenError] = useState("");
 
+  let removeErrorTimeout = null;
   const openFullscreen = elem => {
     if (elem.requestFullscreen) {
       return elem.requestFullscreen();
@@ -20,10 +21,21 @@ const useFullscreen = () => {
       /* IE/Edge */
       return elem.msRequestFullscreen();
     }
-    return setFullscreenError(
+    setFullscreenError(
       "Полноэкранный режим не поддерживается вашим браузером."
     );
+    removeErrorTimeout = setTimeout(() => {
+      setFullscreenError("");
+    }, 3000);
   };
+
+  // clear timeout on unmount
+  useEffect(
+    () => () => {
+      if (removeErrorTimeout) clearTimeout(removeErrorTimeout);
+    },
+    [removeErrorTimeout]
+  );
 
   const closeFullscreen = () => {
     if (document.exitFullscreen) {

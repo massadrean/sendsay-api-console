@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutAction } from "../../redux/actions/authorizationActions";
+import { userLogout } from "../../redux/actions/authorizationActions";
 import useFullscreent from "../../hooks/useFullscreen";
 import Button from "../button/Button";
-import { ReactComponent as Logout } from "../../images/logout.svg";
-import { ReactComponent as Fullscreen } from "../../images/fullscreen.svg";
-import { ReactComponent as ExitFullscreen } from "../../images/exit-fullscreen.svg";
+import { ReactComponent as LogoutIcon } from "../../images/logout.svg";
+import { ReactComponent as FullscreenIcon } from "../../images/fullscreen.svg";
+import { ReactComponent as ExitFullscreenIcon } from "../../images/exit-fullscreen.svg";
 import ErrorMessage from "../messages/ErrorMessage";
 import "./Header.css";
 
@@ -15,10 +15,10 @@ const propTypes = {
   title: PropTypes.string,
   userLogin: PropTypes.string.isRequired,
   userSublogin: PropTypes.string,
-  logout: PropTypes.func.isRequired
+  logoutAction: PropTypes.func.isRequired
 };
 
-const Header = ({ logo, title, userLogin, userSublogin, logout }) => {
+const Header = ({ logo, title, userLogin, userSublogin, logoutAction }) => {
   const {
     openFullscreen,
     closeFullscreen,
@@ -38,7 +38,7 @@ const Header = ({ logo, title, userLogin, userSublogin, logout }) => {
     if (isFullscreen) {
       closeFullscreen();
     }
-    logout();
+    logoutAction();
   };
 
   return (
@@ -49,37 +49,40 @@ const Header = ({ logo, title, userLogin, userSublogin, logout }) => {
         </div>
         { title && <h1 className="header__title">{ title }</h1> }
         <div className="header__user-info">
-          <div className="header__user-login">{ userLogin }</div>
+          <div className="header__user-info-col header__user-login">
+            { userLogin }
+          </div>
           { userSublogin && (
-            <div className="header__user-sublogin">{ userSublogin }</div>
+            <div className="header__user-info-col header__user-sublogin">
+              { userSublogin }
+            </div>
           ) }
         </div>
         <div className="header__logout">
           <Button
-            appearance="link button_link-blue button_svg-stroke-hover-blue"
+            color="blue"
+            variant="text"
+            endIcon={ LogoutIcon }
+            iconHover="stroke"
             onClick={ handleLogout }
           >
             Выйти
-            <span className="button__right-icon">
-              <Logout />
-            </span>
           </Button>
         </div>
         <div className="header__toggle-fullscreen">
           <Button
+            color="blue"
+            variant="text"
+            iconHover="stroke"
             onClick={ toggleFullscreen }
-            appearance="link button_link-blue button_svg-stroke-hover-blue"
           >
-            { isFullscreen ? <ExitFullscreen /> : <Fullscreen /> }
+            { isFullscreen ? <ExitFullscreenIcon /> : <FullscreenIcon /> }
           </Button>
         </div>
       </div>
       { fullscreenError && (
         <div className="fixed-error">
-          <ErrorMessage
-            title="Ошибка при входе в полноэкранный режим"
-            errorText={ fullscreenError }
-          />
+          <ErrorMessage title="Ошибка!" errorText={ fullscreenError } />
         </div>
       ) }
     </div>
@@ -87,8 +90,8 @@ const Header = ({ logo, title, userLogin, userSublogin, logout }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => {
-    dispatch(logoutAction());
+  logoutAction: () => {
+    dispatch(userLogout());
   }
 });
 

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { requestSession } from "../../redux/actions/authorizationActions";
 import logo from "../../images/LOGO.svg";
 import LoginForm from "../forms/LoginForm";
-import Link from "../link/Link";
+import Button from "../button/Button";
 import "./LoginPage.css";
 
 const propTypes = {
@@ -25,15 +25,16 @@ const LoginPage = ({ requestSessionThunkAction }) => {
             <LoginForm title="API-консолька" handleSubmit={ handleFormSubmit } />
           </div>
           <div className="login-page__bottom">
-            <Link
+            <Button
               href="https://github.com/massadrean/"
-              appearance="grey"
+              color="grey"
+              variant="text"
               data-hover="github.com/massadrean"
               rel="noreferrer"
               target="_blank"
             >
               github.com/massadrean
-            </Link>
+            </Button>
           </div>
         </div>
       </div>

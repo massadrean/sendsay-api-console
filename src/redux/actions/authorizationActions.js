@@ -32,7 +32,7 @@ export const checkSession = session => async dispatch => {
   dispatch(sessionReceived({}));
 };
 
-export const logoutAction = () => {
+export const userLogout = () => {
   sendsayApi.request({
     action: "logout"
   });

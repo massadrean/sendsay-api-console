@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
+import ReactResizeDetector from "react-resize-detector";
 import InputLabelGroup from "./InputLabelGroup";
 import Button from "../button/Button";
 import ErrorMessage from "../messages/ErrorMessage";
-import mehIcon from "../../images/meh.svg";
+import { ReactComponent as MehIcon } from "../../images/meh.svg";
+
 import "./form.css";
 import "./LoginForm.css";
 
@@ -13,6 +15,7 @@ const propTypes = {
 };
 
 const LoginForm = ({ handleSubmit, title }) => {
+  const messageRef = useRef(null);
   const [data, setData] = useState({
     login: "",
     sublogin: "",
@@ -21,6 +24,7 @@ const LoginForm = ({ handleSubmit, title }) => {
   const [isLoading, setLoading] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   const [serverErrors, setServerErrors] = useState({});
+  const [messageHeight, setMessageHeight] = useState(0);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -71,17 +75,28 @@ const LoginForm = ({ handleSubmit, title }) => {
     }
   };
 
+  useEffect(() => {
+    if (messageRef.current) setMessageHeight(messageRef.current.clientHeight);
+  }, [serverErrors]);
+
+  const onResize = () => {
+    setMessageHeight(messageRef.current.clientHeight);
+  };
+
   return (
     <form className="login-form" onSubmit={ onSubmit }>
       { title && <h1 className="login-form__title">{ title }</h1> }
       { !!Object.keys(serverErrors).length && (
-        <div className="login-form__alert">
-          <ErrorMessage
-            title="Вход не вышел"
-            errorText={ JSON.stringify(serverErrors) }
-            icon={ mehIcon }
-          />
-        </div>
+        <ReactResizeDetector onResize={ onResize } handleWidth>
+          <div className="login-form__alert" style={ { height: messageHeight } }>
+            <ErrorMessage
+              title="Вход не вышел"
+              errorText={ JSON.stringify(serverErrors) }
+              iconComponent={ MehIcon }
+              ref={ messageRef }
+            />
+          </div>
+        </ReactResizeDetector>
       ) }
       <div className="login-form__row">
         <InputLabelGroup
@@ -89,7 +104,7 @@ const LoginForm = ({ handleSubmit, title }) => {
           name="login"
           handleChange={ handleChange }
           value={ data.login }
-          error={ validationErrors.login }
+          isError={ validationErrors.login }
         />
       </div>
       <div className="login-form__row">
@@ -99,7 +114,7 @@ const LoginForm = ({ handleSubmit, title }) => {
           name="sublogin"
           handleChange={ handleChange }
           value={ data.sublogin }
-          error={ validationErrors.sublogin }
+          isError={ validationErrors.sublogin }
         />
       </div>
       <div className="login-form__row">
@@ -109,12 +124,12 @@ const LoginForm = ({ handleSubmit, title }) => {
           name="password"
           handleChange={ handleChange }
           value={ data.password }
-          error={ validationErrors.password }
+          isError={ validationErrors.password }
         />
       </div>
       <div className="login-form__submit">
         <Button
-          appearance="blue"
+          color="blue"
           type="submit"
           disabled={ !!Object.keys(validationErrors).length }
           loading={ isLoading }

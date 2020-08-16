@@ -9,8 +9,7 @@ import {
 } from "../../redux/actions/consoleActions";
 import Editor from "../editor/Editor";
 import Button from "../button/Button";
-import Link from "../link/Link";
-import { ReactComponent as FourLines } from "../../images/four-lines.svg";
+import { ReactComponent as FourLinesIcon } from "../../images/four-lines.svg";
 import "./ConsoleForm.css";
 
 const propTypes = {
@@ -114,27 +113,28 @@ const ConsoleForm = ({
       </div>
       <div className="console-form__footer">
         <div className="container console-form__footer-container">
-          <Button appearance="blue" type="submit" loading={ isLoading }>
+          <Button color="blue" type="submit" loading={ isLoading }>
             Отправить
           </Button>
           <div className="console-form__footer-center">
-            <Link
+            <Button
               href="https://github.com/massadrean/"
-              appearance="grey"
+              color="grey"
+              variant="text"
               data-hover="github.com/massadrean"
               rel="noreferrer"
               target="_blank"
             >
               github.com/massadrean
-            </Link>
+            </Button>
           </div>
           <Button
-            appearance="link button_link-blue button_svg-stroke-hover-blue"
+            color="blue"
+            variant="text"
+            startIcon={ FourLinesIcon }
+            iconHover="stroke"
             onClick={ formatInputValue }
           >
-            <span className="button__left-icon">
-              <FourLines />
-            </span>
             Форматировать
           </Button>
         </div>

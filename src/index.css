@@ -28,3 +28,10 @@ img {
 svg {
   vertical-align: middle;
 }
+
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  color: inherit;
+  cursor: pointer;
+}

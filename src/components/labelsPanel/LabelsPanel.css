@@ -1,6 +1,7 @@
 .labels-panel {
   background: #f6f6f6;
   overflow: hidden;
+  border-bottom: 1px solid #cccccc;
 }
 
 .labels-panel__container {
@@ -52,6 +53,26 @@
   pointer-events: none;
 }
 
+/* clear-btn transition */
+.labels-panel__clear-btn_transition-enter {
+  transform: translateX(100%);
+}
+
+.labels-panel__clear-btn_transition-enter-active {
+  transform: translateX(0);
+  transition: transform 0.5s;
+}
+
+.labels-panel__clear-btn_transition-exit {
+  transform: translateX(0);
+}
+
+.labels-panel__clear-btn_transition-exit-active {
+  transform: translateX(100%);
+  transition: transform 0.5s;
+}
+/* end clear-btn transition */
+
 .labels-panel .scrollbar-track {
   z-index: -999;
 }
@@ -64,8 +85,61 @@
   padding-left: 15px;
   padding-right: 65px;
   width: fit-content;
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  min-height: 50px;
+}
+
+.labels-panel__label {
+  position: absolute;
+  transition: left 0.5s;
 }
 
 .labels-panel__label:not(:last-child) {
-  margin-right: 10px;
+  padding-right: 10px;
+}
+
+/* label transition */
+.labels-panel__label_transition-enter {
+  transform: translateX(calc(-100% - 15px));
+}
+
+.labels-panel__label_transition-enter-active {
+  transform: translateX(0);
+  transition: transform 0.5s;
+}
+
+.labels-panel__label_transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.labels-panel__label_transition-exit-active {
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+/* placeholder transition */
+.labels-panel__placeholder_transition-enter {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+.labels-panel__placeholder_transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.labels-panel__placeholder_transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.labels-panel__placeholder_transition-exit-active {
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.5s, transform 0.5s;
 }

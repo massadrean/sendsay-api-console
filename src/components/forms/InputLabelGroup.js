@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 import "./InputLabelGroup.css";
 
 const propTypes = {
@@ -9,7 +10,7 @@ const propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
-  error: PropTypes.bool
+  isError: PropTypes.bool
 };
 
 const InputLabelGroup = ({
@@ -19,16 +20,20 @@ const InputLabelGroup = ({
   name,
   value,
   handleChange,
-  error
+  isError
 }) => (
   <label className="input-label-group">
     { leftLabelText || rightLabelText ? (
       <div className="input-label-group__title-row">
         { leftLabelText && (
           <div
-            className={ `input-label-group__title-col input-label-group__title-left ${
-              error ? "input-label-group__left-text_error" : ""
-            }` }
+            className={ classNames(
+              "input-label-group__title-col",
+              "input-label-group__title-left",
+              {
+                "input-label-group__left-text_error": isError
+              }
+            ) }
           >
             { leftLabelText }
           </div>
@@ -42,7 +47,9 @@ const InputLabelGroup = ({
     ) : null }
     <input
       type={ type }
-      className={ `form-control ${error ? "form-control_error" : ""}` }
+      className={ classNames("form-control", {
+        "form-control_error": isError
+      }) }
       name={ name }
       value={ value }
       onChange={ handleChange }
