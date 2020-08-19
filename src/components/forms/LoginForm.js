@@ -5,7 +5,6 @@ import InputLabelGroup from "./InputLabelGroup";
 import Button from "../button/Button";
 import ErrorMessage from "../messages/ErrorMessage";
 import { ReactComponent as MehIcon } from "../../images/meh.svg";
-
 import "./form.css";
 import "./LoginForm.css";
 

@@ -45,7 +45,7 @@ const LabelsPanel = ({ labels, clearLabels }) => {
         <TransitionGroup component={ null }>
           { labels.map(({ action, body, successful }) => (
             <CSSTransition
-              key={ action }
+              key={ body }
               timeout={ 500 }
               classNames="labels-panel__label_transition"
             >

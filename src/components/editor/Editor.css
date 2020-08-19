@@ -4,6 +4,10 @@
   min-width: 20%;
 }
 
+.ace_editor {
+  min-height: 250px;
+}
+
 .ace_scroller.ace_scroll-left {
   box-shadow: none;
 }

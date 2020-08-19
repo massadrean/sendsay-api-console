@@ -46,7 +46,7 @@ export default (state = initialState, action = {}) => {
     case REMOVE_REQUEST_FROM_HISTORY:
       return {
         ...state,
-        requests: state.requests.filter(el => el.action !== action.name)
+        requests: state.requests.filter(el => el.body !== action.requestBody)
       };
     case CLEAR_REQUEST_HISTORY:
       return {

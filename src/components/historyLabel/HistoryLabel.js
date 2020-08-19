@@ -73,7 +73,7 @@ const HistoryLabel = ({
   );
 
   const handleDelete = () => {
-    removeRequestFromHistoryAction(title);
+    removeRequestFromHistoryAction(requestBody);
   };
 
   // use dropdown

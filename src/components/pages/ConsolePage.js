@@ -25,9 +25,6 @@ const ConsolePage = ({ userData, requests, clearRequestHistoryAction }) => (
       userLogin={ userData.login }
       userSublogin={ userData.sublogin }
     />
-    { /* { !!requests.length && (
-      <LabelsPanel labels={ requests } clearLabels={ clearRequestHistoryAction } />
-    ) } */ }
     <LabelsPanel labels={ requests } clearLabels={ clearRequestHistoryAction } />
     <ConsoleForm />
   </div>

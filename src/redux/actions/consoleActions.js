@@ -17,9 +17,9 @@ export const receiveSendsayResponse = payload => ({
   payload
 });
 
-export const removeRequestFromHistory = name => ({
+export const removeRequestFromHistory = requestBody => ({
   type: REMOVE_REQUEST_FROM_HISTORY,
-  name
+  requestBody
 });
 
 export const clearRequestHistory = () => ({
@@ -40,7 +40,7 @@ export const submitRequest = request => async dispatch => {
   dispatch(makeSendsayRequest());
   const parsedRequest = JSON.parse(request);
   const payload = {
-    action: parsedRequest.action || "{no-action}",
+    action: parsedRequest.action || "[no-action]",
     body: request,
     response: ""
   };

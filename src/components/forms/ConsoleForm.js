@@ -94,7 +94,6 @@ const ConsoleForm = ({
           <Editor
             title="Запрос:"
             name="request-input"
-            handleResize={ handleResize }
             tabSize={ editorTabSize }
             handleChange={ handleChange }
             value={ inputValue }
@@ -103,7 +102,6 @@ const ConsoleForm = ({
           <Editor
             title="Ответ:"
             name="request-output"
-            handleResize={ handleResize }
             tabSize={ editorTabSize }
             isError={ isServerError }
             value={ serverResponse }
