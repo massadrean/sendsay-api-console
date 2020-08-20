@@ -2,7 +2,7 @@
 
 [Live demo](https://facebook.github.io/create-react-app/docs/getting-started)
 
-## Роутеры, Redux store
+## Routers, Redux store
 
 Приложение состоит из 2х страниц: страница авторизации и страница консоли. При загрузке приложения происходит автоматический редирект
 на ту или иную страницу в зависимости от наличия действующего идентификатора сессии в redux store. (App.js)
