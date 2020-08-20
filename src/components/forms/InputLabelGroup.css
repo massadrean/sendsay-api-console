@@ -5,15 +5,12 @@
 .input-label-group__title-row {
   display: flex;
   align-items: flex-end;
-  margin: 0 -15px 5px;
-}
-
-.input-label-group__title-col {
-  padding: 0 15px;
+  margin: 0 0 5px;
 }
 
 .input-label-group__title-left {
   margin-right: auto;
+  padding-right: 15px;
 }
 
 .input-label-group__left-text_error {
@@ -24,5 +21,5 @@
   color: #999999;
   font-size: 12px;
   text-align: right;
-  padding-bottom: 2px;
+  padding: 0 0 2px 15px;
 }
