@@ -44,8 +44,8 @@ const LoginForm = ({ handleSubmit, title }) => {
     const errors = {};
     // latin char, numbers and "_@." only; min length: 4
     const loginRegexp = /^[A-Za-z0-9_@.]{4,}$/;
-    // latin char, numbers and "_@." only
-    const subloginRegexp = /^[A-Za-z0-9_@.]{0,}$/;
+    // latin char, numbers and "_" only
+    const subloginRegexp = /^[A-Za-z0-9_]{0,}$/;
     // latin char, numbers and special symbols only; must contain at least 1 uppercase letter, 1 lowercase letter and 1 number; min length: 8
     const passwordRegexp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z_@.?!#$%^&*()\\\-=+/|;:'",~><}{\][ ]{8,}$/;
 

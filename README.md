@@ -1,68 +1,53 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Консоль для запросов к Sendsay API.
 
-## Available Scripts
+[Live demo](https://facebook.github.io/create-react-app/docs/getting-started)
 
-In the project directory, you can run:
+## Роутеры, Redux store
 
-### `yarn start`
+Приложение состоит из 2х страниц: страница авторизации и страница консоли. При загрузке приложения происходит автоматический редирект
+на ту или иную страницу в зависимости от наличия действующего идентификатора сессии в redux store. (App.js)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+При попытке неавторизированного пользователя перейти на страницу консоли происходит редирект на форму авторизации,
+соответственно при попытке авторизированного пользователя перейти на страницу авторизации происходит редирект на консоль (потенциально
+расширяемо для большего количества страниц). (UserRoute.js, GuestRoute.js)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+При создании redux store приложение будет пытаться получить данные из localstorage (логин, сессия, история запросов и др.) и установить их
+в качестве изначального состояния. В случае неудачи изначальное состояние будет установленно редьюсерами. После создания
+хранилища происходит подписка localstorage на изменения состояния. (localStorage.js, store.js)
 
-### `yarn test`
+## Страница авторизации (LoginPage.js)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Форма авторизации состоит из 3х полей: логина, саблогина и пароля. Согласно ТЗ для каждого из них имеются собственные правила валидации. (LoginForm.js)
 
-### `yarn build`
+Поле логина: должно быть заполнено, иметь длинну не менее 4х символов и состоять только из латинских букв, цифр или символов "@", "." и "\_".
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Поле саблогина: может быть пустым, в противном случае должно иметь длинну не менее 4х символов и состоять только из букв латинского алфавита, цифр или символа "\_".
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Поле пароля: должно быть заполнено, может состоять из латинских букв, цифр и спец. символов, должно иметь длинну не менее 8ми символов,
+иметь как минимум одну заглавную букву, одну строчную и одну цифру.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+После неудачной попытки отправить форму невалидные поля подсвечиваются а кнопка "Войти" блокируется
+до тех пор пока не будут удовлетворены условия валидации (согласно макету "Когда поле невалидно").
 
-### `yarn eject`
+При успешном прохождении валидации формы происходит запрос на сервер для получения сессии (в LoginPage.js, форма просто прокидывает данные наверх что позволяет её повторно переиспользовать). При положительном ответе происходит заполнение состояния и автоматический редирект на страницу консоли (по правилам из пункта "Роутеры, Redux store"). При ответе сервера с ошибкой выводится сообщение (ErrorMessage.js).
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Страница консоли (ConsolePage.js)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Шапка (Header.js)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Кнопка "Выйти" отправляет action: "logout" на сервер для завершения сессии и очищает redux store (возвращает в дефолтное состояние).
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Функциональность для перехода в фуллскрин вынесена в отдельный хук для удобства и возможного повторного переиспользования. (useFullscreen.js)
 
-## Learn More
+#### Панель истории запросов (LabelsPanel.js)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Принимает в качестве пропса массив объектов с данными о запросе (action, body, successful) и выводит элементы истории (HistoryLabel.js).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Вертикальный скролл колёсиком мыши и дропдаун вынесены в отдельные хуки: у дропдауна - предоставляемый плагином,
+у скроллбара - кастомный (useHorizontalScrollbar.js).
 
-### Code Splitting
+#### Форма запросов/ответов (ConsoleForm.js)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+Состоит из 2х Ace editor's (Editor.js) value которых контролируется redux из-за необходимости взаимодействия элементов истории запросов с консолью.
 
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+При отправке запроса без action на его месте устанавливается дефолтное значение ([no-action]).
