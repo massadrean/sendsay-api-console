@@ -25,6 +25,13 @@ const LoginForm = ({ handleSubmit, title }) => {
   const [serverErrors, setServerErrors] = useState({});
   const [messageHeight, setMessageHeight] = useState(0);
 
+  useEffect(() => {
+    LoginForm.isMounted = true;
+    return () => {
+      LoginForm.isMounted = false;
+    };
+  }, []);
+
   const handleChange = e => {
     const { name, value } = e.target;
     setData(state => {
@@ -67,10 +74,14 @@ const LoginForm = ({ handleSubmit, title }) => {
 
     if (!isErrors && !isLoading) {
       setLoading(true);
-      handleSubmit(data).catch(err => {
-        setServerErrors(err);
-        setLoading(false);
-      });
+      handleSubmit(data)
+        .catch(err => {
+          setServerErrors(err);
+          setLoading(false);
+        })
+        .finally(() => {
+          if (LoginForm.isMounted) setLoading(false); // prevent "Can't perform a React state update on an unmounted component" error if redirected after submit
+        });
     }
   };
 

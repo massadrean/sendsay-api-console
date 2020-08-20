@@ -41,15 +41,15 @@ function App({ session, checkSessionThunkAction, logoutAction }) {
       { loading ? (
         <div className="preloader" />
       ) : (
-        <Switch>
-          <Suspense fallback={ <div className="preloader" /> }>
-            <Route path="/" exact>
-              { session ? <Redirect to="/console" /> : <Redirect to="/login" /> }
-            </Route>
+        <Suspense fallback={ <div className="preloader" /> }>
+          <Switch>
             <GuestRoute path="/login" exact component={ LoginPage } />
             <UserRoute path="/console" exact component={ ConsolePage } />
-          </Suspense>
-        </Switch>
+            <Route path="*">
+              { session ? <Redirect to="/console" /> : <Redirect to="/login" /> }
+            </Route>
+          </Switch>
+        </Suspense>
       ) }
     </div>
   );
