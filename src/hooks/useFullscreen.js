@@ -72,7 +72,7 @@ const useFullscreen = () => {
 
     return () => {
       document.documentElement.removeEventListener(
-        "fullscreenchange",
+        `${prefixToUse}fullscreenchange`,
         handleFullscreenChange
       );
     };
