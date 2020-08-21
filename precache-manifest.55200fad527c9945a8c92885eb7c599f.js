@@ -1242,7 +1242,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/sendsay-api-console/feff703ce532f20391dfed8199b6971e.js"
   },
   {
-    "revision": "5054ce63daeff790d83c9ee7fa6d6107",
+    "revision": "24720908da92df4c68990eed79a9a494",
     "url": "/sendsay-api-console/index.html"
   },
   {
@@ -1258,7 +1258,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/sendsay-api-console/static/css/LoginPage.a381184b.chunk.css"
   },
   {
-    "revision": "a6884b331f7f54708678",
+    "revision": "48f187ebc7ca50cd4ed8",
     "url": "/sendsay-api-console/static/css/main.fe1e56a5.chunk.css"
   },
   {
@@ -1294,8 +1294,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/sendsay-api-console/static/js/LoginPage.35942129.chunk.js"
   },
   {
-    "revision": "a6884b331f7f54708678",
-    "url": "/sendsay-api-console/static/js/main.7ca4ff33.chunk.js"
+    "revision": "48f187ebc7ca50cd4ed8",
+    "url": "/sendsay-api-console/static/js/main.fd0dfd2a.chunk.js"
   },
   {
     "revision": "c4b63ba52b9ecc723446",
