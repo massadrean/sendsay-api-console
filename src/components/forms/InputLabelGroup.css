@@ -1,0 +1,25 @@
+.input-label-group {
+  display: block;
+}
+
+.input-label-group__title-row {
+  display: flex;
+  align-items: flex-end;
+  margin: 0 0 5px;
+}
+
+.input-label-group__title-left {
+  margin-right: auto;
+  padding-right: 15px;
+}
+
+.input-label-group__left-text_error {
+  color: #cf2c00;
+}
+
+.input-label-group__title-right {
+  color: #999999;
+  font-size: 12px;
+  text-align: right;
+  padding: 0 0 2px 15px;
+}
