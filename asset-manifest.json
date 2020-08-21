@@ -9,8 +9,8 @@
     "LoginPage.js": "/sendsay-api-console/static/js/LoginPage.35942129.chunk.js",
     "LoginPage.js.map": "/sendsay-api-console/static/js/LoginPage.35942129.chunk.js.map",
     "main.css": "/sendsay-api-console/static/css/main.fe1e56a5.chunk.css",
-    "main.js": "/sendsay-api-console/static/js/main.fd0dfd2a.chunk.js",
-    "main.js.map": "/sendsay-api-console/static/js/main.fd0dfd2a.chunk.js.map",
+    "main.js": "/sendsay-api-console/static/js/main.7ca4ff33.chunk.js",
+    "main.js.map": "/sendsay-api-console/static/js/main.7ca4ff33.chunk.js.map",
     "runtime-main.js": "/sendsay-api-console/static/js/runtime-main.4d452f0a.js",
     "runtime-main.js.map": "/sendsay-api-console/static/js/runtime-main.4d452f0a.js.map",
     "static/js/5.c8709f20.chunk.js": "/sendsay-api-console/static/js/5.c8709f20.chunk.js",
@@ -433,7 +433,7 @@
     "mode-groovy.js": "/sendsay-api-console/fe6efc8bf7b948aa275d980518b286b7.js",
     "theme-gruvbox.js": "/sendsay-api-console/feff703ce532f20391dfed8199b6971e.js",
     "index.html": "/sendsay-api-console/index.html",
-    "precache-manifest.55200fad527c9945a8c92885eb7c599f.js": "/sendsay-api-console/precache-manifest.55200fad527c9945a8c92885eb7c599f.js",
+    "precache-manifest.a1fe4d65ad88057f1f13f87c20b0b064.js": "/sendsay-api-console/precache-manifest.a1fe4d65ad88057f1f13f87c20b0b064.js",
     "service-worker.js": "/sendsay-api-console/service-worker.js",
     "static/css/6.117ce29f.chunk.css.map": "/sendsay-api-console/static/css/6.117ce29f.chunk.css.map",
     "static/css/ConsolePage.61a1e246.chunk.css.map": "/sendsay-api-console/static/css/ConsolePage.61a1e246.chunk.css.map",
@@ -458,6 +458,6 @@
     "static/css/6.117ce29f.chunk.css",
     "static/js/6.30473d87.chunk.js",
     "static/css/main.fe1e56a5.chunk.css",
-    "static/js/main.fd0dfd2a.chunk.js"
+    "static/js/main.7ca4ff33.chunk.js"
   ]
 }
