@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/sendsay-api-console/precache-manifest.55200fad527c9945a8c92885eb7c599f.js"
+  "/sendsay-api-console/precache-manifest.3b68d6024b1b3cfa87b5a9b2ffb5d667.js"
 );
 
 self.addEventListener('message', (event) => {

@@ -1242,7 +1242,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/sendsay-api-console/feff703ce532f20391dfed8199b6971e.js"
   },
   {
-    "revision": "24720908da92df4c68990eed79a9a494",
+    "revision": "25269a91ee3f5b34fdc5e775b2d056ae",
     "url": "/sendsay-api-console/index.html"
   },
   {
@@ -1250,12 +1250,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/sendsay-api-console/static/css/6.117ce29f.chunk.css"
   },
   {
-    "revision": "796fac185a976fc19298",
-    "url": "/sendsay-api-console/static/css/ConsolePage.61a1e246.chunk.css"
+    "revision": "ea5aaf8e975b981320f5",
+    "url": "/sendsay-api-console/static/css/ConsolePage.015562cc.chunk.css"
   },
   {
-    "revision": "bed888e9c418aec5a77a",
-    "url": "/sendsay-api-console/static/css/LoginPage.a381184b.chunk.css"
+    "revision": "902a33222bd1e739d94d",
+    "url": "/sendsay-api-console/static/css/LoginPage.3260cb66.chunk.css"
   },
   {
     "revision": "48f187ebc7ca50cd4ed8",
@@ -1286,11 +1286,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/sendsay-api-console/static/js/6.30473d87.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "796fac185a976fc19298",
-    "url": "/sendsay-api-console/static/js/ConsolePage.70403c28.chunk.js"
+    "revision": "ea5aaf8e975b981320f5",
+    "url": "/sendsay-api-console/static/js/ConsolePage.a4dc79d1.chunk.js"
   },
   {
-    "revision": "bed888e9c418aec5a77a",
+    "revision": "902a33222bd1e739d94d",
     "url": "/sendsay-api-console/static/js/LoginPage.35942129.chunk.js"
   },
   {
@@ -1298,8 +1298,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/sendsay-api-console/static/js/main.fd0dfd2a.chunk.js"
   },
   {
-    "revision": "c4b63ba52b9ecc723446",
-    "url": "/sendsay-api-console/static/js/runtime-main.4d452f0a.js"
+    "revision": "acfc6d8812cc7f164d4c",
+    "url": "/sendsay-api-console/static/js/runtime-main.2ce0f694.js"
   },
   {
     "revision": "97dd5a0cc2508bd28f3972f2588798e5",
