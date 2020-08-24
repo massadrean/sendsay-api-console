@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import WhiteDropdown from "../dropdowns/WhiteDropdown";
@@ -15,25 +15,24 @@ const propTypes = {
 
 const LabelsPanel = ({ labels, clearLabels }) => {
   const refsArray = [];
+  const panelRef = useRef(null);
 
-  useLayoutEffect(() => {
-    let totalWidth = 15;
+  useEffect(() => {
+    let totalWidth = 15; // initial value = padding-left
     let totalLength = refsArray.length;
-    refsArray.forEach(
-      node => {
-        const nodeRect = node.getBoundingClientRect();
-        totalWidth += nodeRect.width;
-        totalLength -= 1;
-        node.style.left = `${totalWidth - nodeRect.width}px`;
-        node.style.zIndex = totalLength;
-      },
-      [labels]
-    );
-  });
+
+    refsArray.forEach(node => {
+      const nodeRect = node.getBoundingClientRect();
+      totalWidth += nodeRect.width;
+      totalLength -= 1;
+      node.style.left = `${totalWidth - nodeRect.width}px`;
+      node.style.zIndex = totalLength;
+    });
+  }, [refsArray]);
 
   const scrollbarElement = useHorizontalScrollbar(
     scrollbarApi => (
-      <div className="labels-panel_inner">
+      <div className="labels-panel__inner" ref={ panelRef }>
         <CSSTransition
           in={ !labels.length }
           timeout={ 500 }

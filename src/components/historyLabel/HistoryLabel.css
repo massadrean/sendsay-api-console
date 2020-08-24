@@ -41,6 +41,7 @@
   padding: 0 27px;
   height: 30px;
   z-index: 1;
+  white-space: nowrap;
 }
 
 .history-label__name-btn:focus {
