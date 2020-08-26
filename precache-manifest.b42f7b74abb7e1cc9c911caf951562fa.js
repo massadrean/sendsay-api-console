@@ -1242,7 +1242,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/sendsay-api-console/feff703ce532f20391dfed8199b6971e.js"
   },
   {
-    "revision": "25269a91ee3f5b34fdc5e775b2d056ae",
+    "revision": "51e6110fae8e729d8338c82be1d10846",
     "url": "/sendsay-api-console/index.html"
   },
   {
@@ -1250,7 +1250,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/sendsay-api-console/static/css/6.117ce29f.chunk.css"
   },
   {
-    "revision": "ea5aaf8e975b981320f5",
+    "revision": "5c0f17fc2898c602d0b2",
     "url": "/sendsay-api-console/static/css/ConsolePage.015562cc.chunk.css"
   },
   {
@@ -1286,8 +1286,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/sendsay-api-console/static/js/6.30473d87.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ea5aaf8e975b981320f5",
-    "url": "/sendsay-api-console/static/js/ConsolePage.a4dc79d1.chunk.js"
+    "revision": "5c0f17fc2898c602d0b2",
+    "url": "/sendsay-api-console/static/js/ConsolePage.3dc7502a.chunk.js"
   },
   {
     "revision": "902a33222bd1e739d94d",
@@ -1298,8 +1298,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/sendsay-api-console/static/js/main.fd0dfd2a.chunk.js"
   },
   {
-    "revision": "acfc6d8812cc7f164d4c",
-    "url": "/sendsay-api-console/static/js/runtime-main.2ce0f694.js"
+    "revision": "804ed48adc65e058abcc",
+    "url": "/sendsay-api-console/static/js/runtime-main.533624ba.js"
   },
   {
     "revision": "97dd5a0cc2508bd28f3972f2588798e5",
