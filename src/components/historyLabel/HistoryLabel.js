@@ -21,6 +21,7 @@ const propTypes = {
   successful: PropTypes.bool.isRequired,
   dropdown: PropTypes.elementType.isRequired,
   scrollbarApi: PropTypes.oneOfType([PropTypes.object]),
+  transition: PropTypes.number,
   setConsoleInputValueAction: PropTypes.func.isRequired,
   submitRequestThunkAction: PropTypes.func.isRequired,
   removeRequestFromHistoryAction: PropTypes.func.isRequired
@@ -32,6 +33,7 @@ const HistoryLabel = ({
   successful,
   dropdown: Dropdown,
   scrollbarApi,
+  transition = 500,
   setConsoleInputValueAction,
   submitRequestThunkAction,
   removeRequestFromHistoryAction
@@ -73,6 +75,9 @@ const HistoryLabel = ({
   );
 
   const handleDelete = () => {
+    const newScrollPos =
+      scrollbarApi.offset.x - containerRef.current.clientWidth;
+    scrollbarApi.scrollTo(newScrollPos, 0, transition);
     removeRequestFromHistoryAction(requestBody);
   };
 
@@ -83,7 +88,9 @@ const HistoryLabel = ({
         isOpen={ isOpen }
         ref={ layerProps.ref }
         style={ {
-          ...layerProps.style
+          ...layerProps.style,
+          left:
+            Math.sign(layerProps.style.left) === -1 ? 0 : layerProps.style.left
         } }
       >
         <Button
@@ -168,7 +175,6 @@ const HistoryLabel = ({
 
   const toggleDropdown = () => {
     const rectObj = containerRef.current.getBoundingClientRect();
-    if (rectObj.left < 0) rectObj.left = 0;
     if (!dropdownProps.isOpen) {
       dropdownProps.open({
         clientRect: rectObj,

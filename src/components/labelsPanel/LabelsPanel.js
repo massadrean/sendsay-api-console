@@ -16,6 +16,7 @@ const propTypes = {
 const LabelsPanel = ({ labels, clearLabels }) => {
   const refsArray = [];
   const panelRef = useRef(null);
+  const transition = 500;
 
   useEffect(() => {
     let totalWidth = 15; // initial value = padding-left
@@ -35,7 +36,7 @@ const LabelsPanel = ({ labels, clearLabels }) => {
       <div className="labels-panel__inner" ref={ panelRef }>
         <CSSTransition
           in={ !labels.length }
-          timeout={ 500 }
+          timeout={ transition }
           classNames="labels-panel__placeholder_transition"
           unmountOnExit
         >
@@ -45,7 +46,7 @@ const LabelsPanel = ({ labels, clearLabels }) => {
           { labels.map(({ action, body, successful }) => (
             <CSSTransition
               key={ body }
-              timeout={ 500 }
+              timeout={ transition }
               classNames="labels-panel__label_transition"
             >
               <div
@@ -60,6 +61,7 @@ const LabelsPanel = ({ labels, clearLabels }) => {
                   successful={ successful }
                   dropdown={ WhiteDropdown }
                   scrollbarApi={ scrollbarApi }
+                  transition={ transition }
                 />
               </div>
             </CSSTransition>
@@ -78,7 +80,7 @@ const LabelsPanel = ({ labels, clearLabels }) => {
       <div className="container labels-panel__container">
         <CSSTransition
           in={ !!labels.length }
-          timeout={ 500 }
+          timeout={ transition }
           classNames="labels-panel__clear-btn_transition"
           unmountOnExit
         >
