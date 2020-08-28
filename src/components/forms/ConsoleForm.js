@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Split from "react-split";
 import {
   submitRequest,
@@ -12,36 +11,22 @@ import Button from "../button/Button";
 import { ReactComponent as FourLinesIcon } from "../../images/four-lines.svg";
 import "./ConsoleForm.css";
 
-const propTypes = {
-  isLoading: PropTypes.bool,
-  submitRequestThunkAction: PropTypes.func.isRequired,
-  serverResponse: PropTypes.string,
-  isServerError: PropTypes.bool,
-  consoleRatio: PropTypes.arrayOf(PropTypes.number),
-  setConsoleRatioAction: PropTypes.func.isRequired,
-  inputValue: PropTypes.string,
-  setConsoleInputValueAction: PropTypes.func.isRequired
-};
-
-const ConsoleForm = ({
-  isLoading,
-  submitRequestThunkAction,
-  serverResponse,
-  isServerError,
-  consoleRatio,
-  setConsoleRatioAction,
-  inputValue,
-  setConsoleInputValueAction
-}) => {
+const ConsoleForm = () => {
+  const isLoading = useSelector(state => state.console.isFetching);
+  const serverResponse = useSelector(state => state.console.outputValue);
+  const isServerError = useSelector(state => state.console.isServerError);
+  const consoleRatio = useSelector(state => state.console.ratio);
+  const inputValue = useSelector(state => state.console.inputValue);
+  const dispatch = useDispatch();
   const [inputError, setInputError] = useState(false);
   const editorTabSize = 2;
 
   const handleChange = val => {
-    setConsoleInputValueAction(val);
+    dispatch(setConsoleInputValue(val));
   };
 
   const handleResize = sizes => {
-    setConsoleRatioAction(sizes);
+    dispatch(setConsoleRatio(sizes));
   };
 
   const formatJson = json => {
@@ -57,7 +42,7 @@ const ConsoleForm = ({
   const formatInputValue = () => {
     const formatted = formatJson(inputValue);
     if (formatted) {
-      setConsoleInputValueAction(formatted);
+      dispatch(setConsoleInputValue(formatted));
       setInputError(false);
     } else {
       setInputError(true);
@@ -71,7 +56,7 @@ const ConsoleForm = ({
       const formattedInputValue = formatJson(inputValue);
       if (formattedInputValue) {
         setInputError(false);
-        submitRequestThunkAction(formattedInputValue);
+        dispatch(submitRequest(formattedInputValue));
       } else {
         setInputError(true);
       }
@@ -141,20 +126,4 @@ const ConsoleForm = ({
   );
 };
 
-const mapStateToProps = state => ({
-  isLoading: state.console.isFetching,
-  serverResponse: state.console.outputValue,
-  isServerError: state.console.isServerError,
-  consoleRatio: state.console.ratio,
-  inputValue: state.console.inputValue
-});
-
-const mapDispatchToProps = dispatch => ({
-  submitRequestThunkAction: request => dispatch(submitRequest(request)),
-  setConsoleRatioAction: ratio => dispatch(setConsoleRatio(ratio)),
-  setConsoleInputValueAction: value => dispatch(setConsoleInputValue(value))
-});
-
-ConsoleForm.propTypes = propTypes;
-
-export default connect(mapStateToProps, mapDispatchToProps)(ConsoleForm);
+export default ConsoleForm;

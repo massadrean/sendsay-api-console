@@ -1,7 +1,6 @@
 import React, { Suspense, useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { checkSession, userLogout } from "./redux/actions/authorizationActions";
 import GuestRoute from "./routes/GuestRoute";
 import UserRoute from "./routes/UserRoute";
@@ -14,27 +13,23 @@ const ConsolePage = React.lazy(() =>
   import(/* webpackChunkName: "ConsolePage" */ "./components/pages/ConsolePage")
 );
 
-const propTypes = {
-  session: PropTypes.string,
-  checkSessionThunkAction: PropTypes.func.isRequired,
-  logoutAction: PropTypes.func.isRequired
-};
-
-function App({ session, checkSessionThunkAction, logoutAction }) {
+function App() {
+  const session = useSelector(state => state.userData.session);
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (session) {
       setLoading(true);
-      checkSessionThunkAction(session)
+      dispatch(checkSession(session))
         .catch(() => {
-          logoutAction(); // clear storage if the session has expired
+          dispatch(userLogout()); // clear storage if the session has expired
         })
         .finally(() => {
           setLoading(false);
         });
     }
-  }, [checkSessionThunkAction, session, logoutAction]);
+  }, [dispatch, session]);
 
   return (
     <div className="App">
@@ -55,17 +50,4 @@ function App({ session, checkSessionThunkAction, logoutAction }) {
   );
 }
 
-const mapStateToProps = state => ({
-  session: state.userData.session
-});
-
-const mapDispatchToProps = dispatch => ({
-  checkSessionThunkAction: session => dispatch(checkSession(session)),
-  logoutAction: () => {
-    dispatch(userLogout());
-  }
-});
-
-App.propTypes = propTypes;
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

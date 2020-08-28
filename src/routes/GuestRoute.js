@@ -1,28 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 
 const propTypes = {
-  component: PropTypes.oneOfType([PropTypes.object]).isRequired,
-  isAuthenticated: PropTypes.bool.isRequired
+  component: PropTypes.oneOfType([PropTypes.object]).isRequired
 };
 
-const UserRoute = ({ isAuthenticated, component: Component, ...rest }) => (
-  <Route
-    { ...rest }
-    render={ props =>
-      !isAuthenticated ? <Component { ...props } /> : <Redirect to="/console" />
-    }
-  />
-);
+const UserRoute = ({ component: Component, ...rest }) => {
+  const isAuthenticated = useSelector(state => !!state.userData.session);
+
+  return (
+    <Route
+      { ...rest }
+      render={ props =>
+        !isAuthenticated ? <Component { ...props } /> : <Redirect to="/console" />
+      }
+    />
+  );
+};
 
 UserRoute.propTypes = propTypes;
 
-function mapStateToProps(state) {
-  return {
-    isAuthenticated: !!state.userData.session
-  };
-}
-
-export default connect(mapStateToProps)(UserRoute);
+export default UserRoute;

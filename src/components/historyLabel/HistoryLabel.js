@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useToggleLayer } from "react-laag";
 import ResizeObserver from "resize-observer-polyfill";
 import * as clipboard from "clipboard-polyfill/text";
@@ -21,10 +21,7 @@ const propTypes = {
   successful: PropTypes.bool.isRequired,
   dropdown: PropTypes.elementType.isRequired,
   scrollbarApi: PropTypes.oneOfType([PropTypes.object]),
-  transition: PropTypes.number,
-  setConsoleInputValueAction: PropTypes.func.isRequired,
-  submitRequestThunkAction: PropTypes.func.isRequired,
-  removeRequestFromHistoryAction: PropTypes.func.isRequired
+  transition: PropTypes.number
 };
 
 const HistoryLabel = ({
@@ -33,11 +30,9 @@ const HistoryLabel = ({
   successful,
   dropdown: Dropdown,
   scrollbarApi,
-  transition = 500,
-  setConsoleInputValueAction,
-  submitRequestThunkAction,
-  removeRequestFromHistoryAction
+  transition = 500
 }) => {
+  const dispatch = useDispatch();
   const triggerDropdownRef = useRef(null);
   const containerRef = useRef(null);
   const timeoutRef = useRef(null);
@@ -45,12 +40,12 @@ const HistoryLabel = ({
   const [showCopyTooltip, setShowCopyTooltip] = useState(false);
 
   const fillConsoleInput = () => {
-    setConsoleInputValueAction(requestBody);
+    dispatch(setConsoleInputValue(requestBody));
   };
 
   const handleExecute = () => {
     fillConsoleInput();
-    submitRequestThunkAction(requestBody);
+    dispatch(submitRequest(requestBody));
   };
 
   const handleCopy = async() => {
@@ -78,7 +73,7 @@ const HistoryLabel = ({
     const newScrollPos =
       scrollbarApi.offset.x - containerRef.current.clientWidth;
     scrollbarApi.scrollTo(newScrollPos, 0, transition);
-    removeRequestFromHistoryAction(requestBody);
+    dispatch(removeRequestFromHistory(requestBody));
   };
 
   // use dropdown
@@ -225,13 +220,6 @@ const HistoryLabel = ({
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  setConsoleInputValueAction: value => dispatch(setConsoleInputValue(value)),
-  removeRequestFromHistoryAction: name =>
-    dispatch(removeRequestFromHistory(name)),
-  submitRequestThunkAction: request => dispatch(submitRequest(request))
-});
-
 HistoryLabel.propTypes = propTypes;
 
-export default connect(null, mapDispatchToProps)(HistoryLabel);
+export default HistoryLabel;

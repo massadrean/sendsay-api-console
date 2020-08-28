@@ -1,18 +1,14 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { requestSession } from "../../redux/actions/authorizationActions";
 import logo from "../../images/LOGO.svg";
 import LoginForm from "../forms/LoginForm";
 import Button from "../button/Button";
 import "./LoginPage.css";
 
-const propTypes = {
-  requestSessionThunkAction: PropTypes.func.isRequired
-};
-
-const LoginPage = ({ requestSessionThunkAction }) => {
-  const handleFormSubmit = formData => requestSessionThunkAction(formData);
+const LoginPage = () => {
+  const dispatch = useDispatch();
+  const handleFormSubmit = formData => dispatch(requestSession(formData));
 
   return (
     <div className="login-page">
@@ -42,8 +38,4 @@ const LoginPage = ({ requestSessionThunkAction }) => {
   );
 };
 
-LoginPage.propTypes = propTypes;
-
-export default connect(null, { requestSessionThunkAction: requestSession })(
-  LoginPage
-);
+export default LoginPage;

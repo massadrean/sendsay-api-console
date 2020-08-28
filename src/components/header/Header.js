@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { userLogout } from "../../redux/actions/authorizationActions";
-import useFullscreent from "../../hooks/useFullscreen";
+import useFullscreen from "../../hooks/useFullscreen";
 import Button from "../button/Button";
 import { ReactComponent as LogoutIcon } from "../../images/logout.svg";
 import { ReactComponent as FullscreenIcon } from "../../images/fullscreen.svg";
@@ -14,17 +14,17 @@ const propTypes = {
   logo: PropTypes.string,
   title: PropTypes.string,
   userLogin: PropTypes.string.isRequired,
-  userSublogin: PropTypes.string,
-  logoutAction: PropTypes.func.isRequired
+  userSublogin: PropTypes.string
 };
 
-const Header = ({ logo, title, userLogin, userSublogin, logoutAction }) => {
+const Header = ({ logo, title, userLogin, userSublogin }) => {
+  const dispatch = useDispatch();
   const {
     openFullscreen,
     closeFullscreen,
     isFullscreen,
     fullscreenError
-  } = useFullscreent();
+  } = useFullscreen();
 
   const toggleFullscreen = () => {
     if (!isFullscreen) {
@@ -38,7 +38,7 @@ const Header = ({ logo, title, userLogin, userSublogin, logoutAction }) => {
     if (isFullscreen) {
       closeFullscreen();
     }
-    logoutAction();
+    dispatch(userLogout());
   };
 
   return (
@@ -89,12 +89,6 @@ const Header = ({ logo, title, userLogin, userSublogin, logoutAction }) => {
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  logoutAction: () => {
-    dispatch(userLogout());
-  }
-});
-
 Header.propTypes = propTypes;
 
-export default connect(null, mapDispatchToProps)(Header);
+export default Header;
