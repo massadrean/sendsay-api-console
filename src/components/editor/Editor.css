@@ -1,0 +1,51 @@
+.editor {
+  display: flex;
+  flex-direction: column;
+  min-width: 20%;
+}
+
+.ace_editor {
+  min-height: 250px;
+}
+
+.ace_scroller.ace_scroll-left {
+  box-shadow: none;
+}
+
+.ace_cursor {
+  border-width: 1px;
+}
+
+.ace_hidden-cursors .ace_cursor {
+  opacity: 0;
+}
+
+.editor__title {
+  font-size: 12px;
+  color: #999999;
+  margin-bottom: 5px;
+}
+
+.editor__title_error {
+  color: #cf2c00;
+}
+
+.editor__label {
+  display: block;
+  flex: 1 0 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  cursor: text;
+}
+
+.editor__label_error {
+  border-color: #cf2c00;
+  box-shadow: 0px 0px 5px rgba(207, 44, 0, 0.5);
+}
+
+.ace_mobile-menu {
+  visibility: hidden;
+}
